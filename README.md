@@ -35,3 +35,22 @@ https://www.figma.com/design/SDRYsbwyn30MbxLH6IYOqd/Phincon-Attendance?node-id=0
          style="width:200px;height:400px;"></td>
   </tr>
  
+<tr>
+    <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/LOGIN.png" alt="Login"
+         style="width:200px;height:400px;" </td>
+     <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/Register.png" alt="Daftar1"
+         style="width:200px;height:400px;" </td>
+    <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/Reset%20Password.png" alt="Daftar2"
+         style="width:200px;height:400px;"></td>
+</tr>
+
+<tr>
+    <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/Homepage%20-%20CheckIn.png" alt="Login"
+         style="width:200px;height:400px;" </td>
+     <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/Homepage%20-%20CheckOut.png" alt="Daftar1"
+         style="width:200px;height:400px;" </td>
+    <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/History.png" alt="Daftar2"
+         style="width:200px;height:400px;"></td>
+    <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/History%20Week.png" alt="Daftar2"
+         style="width:200px;height:400px;"></td>
+</tr>
