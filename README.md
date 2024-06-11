@@ -42,6 +42,8 @@ https://www.figma.com/design/SDRYsbwyn30MbxLH6IYOqd/Phincon-Attendance?node-id=0
          style="width:200px;height:400px;" </td>
     <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/Reset%20Password.png" alt="Daftar2"
          style="width:200px;height:400px;"></td>
+    <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/Account%20Profile.png" alt="Daftar2"
+         style="width:200px;height:400px;"></td>
 </tr>
 
 <tr>
