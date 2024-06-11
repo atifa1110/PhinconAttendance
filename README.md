@@ -25,18 +25,13 @@ https://www.figma.com/design/SDRYsbwyn30MbxLH6IYOqd/Phincon-Attendance?node-id=0
 ## Screenshots :
  <table align="center">
   <tr>
-    <td><img src="https://user-images.githubusercontent.com/49097275/255672955-6f034b77-f52f-4ffa-ba61-ff2b27e08a8a.jpg" alt="Login"
+    <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/SPLASHSCREEN.png" alt="Login"
          style="width:200px;height:400px;" </td>
-     <td><img src="https://user-images.githubusercontent.com/49097275/255673086-9d7e8b12-4548-430f-b2b9-77690722a7e5.jpg" alt="Daftar1"
+     <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/ONBOARDING.png" alt="Daftar1"
          style="width:200px;height:400px;" </td>
-    <td><img src="https://user-images.githubusercontent.com/49097275/255673188-9205e01d-ccea-472b-80fa-31732d24cc0c.jpg" alt="Daftar2"
+    <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/ONBOARDING%202.png" alt="Daftar2"
          style="width:200px;height:400px;"></td>
-   <td><img src="https://user-images.githubusercontent.com/49097275/255673217-92d7e621-6f6f-40c4-bc3c-96a429f9bf04.jpg" alt="Daftar3"
-         style="width:200px;height:400px;"></td>
-   <td><img src="https://user-images.githubusercontent.com/49097275/255673232-b754d6e2-b78e-4b30-8e60-8dad2003217f.jpg" alt="Daftar4"
+   <td><img src="https://github.com/atifa1110/PhinconAttendance/blob/master/ONBOARDING%203.png" alt="Daftar3"
          style="width:200px;height:400px;"></td>
   </tr>
-  
-  <tr>
-    <td><img src="https://user-images.githubusercontent.com/49097275/2556732
  
