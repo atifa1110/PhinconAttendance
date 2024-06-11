@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.PhinconAttendance" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/blue</item>
+    </style>
+
+    <style name="Theme.CustomSplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.PhinconAttendance</item>
+    </style>
+</resources>

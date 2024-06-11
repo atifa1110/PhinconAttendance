@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Phincon Attendance</string>
+    <string name="absensi">Absensi</string>
+    <string name="absensi_deskripsi">Kehadiran sisten absensi digital merupakan
+        \npenemuan yang mampu menggantikan pencatatan
+        \ndata kehadiran secara manual</string>
+    <string name="attendance">Attendance System</string>
+    <string name="attendance_deskripsi">Pengelolaan karyawan di era digital yang baik,
+        \nmenghasilkan karyawan terbaik pula, salah satunya
+        \nabsensi karyawan</string>
+    <string name="masker">Selalu Pakai Masker</string>
+    <string name="masker_deskripsi">Guna mencegah penyebaran virus Covid-19,
+        \nPemerintah telah mengeluarkan kebijakan Physical
+        \nDistancing serta kebijakan bekerja, belajar, dan
+        \nberibadah dari rumah.</string>
+
+    <string name="welcome">Welcome To Login</string>
+    <string name="fill_login">Please fill email and password to login your app account</string>
+    <string name="forgot_password">Forgot Password?</string>
+
+    <string name="create_account">Create Your Account</string>
+    <string name="fill_register">Please fill email, name, password, and repeat password to register your app</string>
+
+    <string name="show_password">Show Password</string>
+    <string name="hide_password">Hide Password</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="full_name">Full Name</string>
+    <string name="employee_name">Employee Fullname</string>
+
+    <string name="login_now">Login Now</string>
+    <string name="register">Register</string>
+    <string name="reset_password">Reset Password</string>
+
+    <string name="validation_error">validation error</string>
+    <string name="success">success</string>
+    <string name="credit_card_number">Credit card number</string>
+
+    <string name="card_number_too_short">Number is too short</string>
+    <string name="name">Name</string>
+    <string name="name_short">Name is to Short</string>
+    <string name="not_email">Email is wrong</string>
+    <string name="short_password">Password Min 8 Character</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="equal_password">Password is Not Matched</string>
+
+    <string name="name_empty">Name is empty</string>
+
+    <string name="confirm_password_empty">Confirm Password is Empty</string>
+
+    <string name="email_empty">Email is Empty</string>
+    <string name="email_long">Email is too short</string>
+    <string name="email_wrong">Email is Wrong</string>
+
+    <string name="password_empty">Password is Empty</string>
+    <string name="password_short">Password Min 8 Character</string>
+    <string name="password_matched">Password is Not Matched</string>
+    <string name="fill_data"><![CDATA[Please fill email & password to login your app account]]></string>
+
+</resources>
