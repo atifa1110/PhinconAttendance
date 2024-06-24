@@ -1,4 +1,5 @@
 # Phincon Attendance 
+Phincon Attendance is Native Android Application to record attendance for studying only using Kotlin, Firebase and Jetpack Compose
 
 ## Figma Design: 
 https://www.figma.com/design/SDRYsbwyn30MbxLH6IYOqd/Phincon-Attendance?node-id=0-1&t=s3hlXk6QAdLKbSkO-0
