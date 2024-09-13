@@ -1,13 +1,10 @@
 package com.example.phinconattendance.screen.forgot
 
-import android.app.AlertDialog
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,55 +12,61 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.example.phinconattendance.component.*
-import com.example.phinconattendance.data.auth.AuthViewModel
-import com.example.phinconattendance.data.auth.ResultState
-import com.example.phinconattendance.navigation.Screen
+import com.example.phinconattendance.R
+import com.example.phinconattendance.component.ButtonComponent
+import com.example.phinconattendance.component.ClickableLoginTextComponent
+import com.example.phinconattendance.component.CommonDialog
+import com.example.phinconattendance.component.TextComponent
+import com.example.phinconattendance.component.TextFieldComponent
+import com.example.phinconattendance.component.TextWhiteComponent
 import com.example.phinconattendance.ui.theme.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @Composable
-fun ForgotPasswordScreen(viewModel: AuthViewModel = hiltViewModel(),
-                         navController: NavHostController) {
+fun ForgotPasswordRoute(
+    onNavigateToLogin : () -> Unit,
+    viewModel: ForgotPasswordViewModel = hiltViewModel()
+){
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-
-    var email = remember { mutableStateOf("") }
-//    var password = remember { mutableStateOf("") }
-//    var confirm = remember { mutableStateOf("") }
-
-    val isErrorEmail = remember { mutableStateOf(false) }
-    val isErrorEmailMessage = remember { mutableStateOf("") }
-
-//    val isErrorPassword = remember { mutableStateOf(false) }
-//    val isErrorPasswordMessage = remember { mutableStateOf("") }
-//
-//    val isErrorConfirm = remember { mutableStateOf(false) }
-//    val isErrorConfirmMessage = remember { mutableStateOf("") }
+    ForgotPasswordScreen(
+        email = uiState.email,
+        onEmailChange = viewModel::onEmailChange,
+        isLoading = uiState.isLoading,
+        isSuccess = uiState.isSuccess,
+        onResetPassword = viewModel::resetPassword,
+        onNavigateToLogin = onNavigateToLogin
+    )
+}
+@Composable
+fun ForgotPasswordScreen(
+    email : String,
+    onEmailChange : (String) -> Unit,
+    isLoading : Boolean,
+    isSuccess : Boolean,
+    onResetPassword : () -> Unit,
+    onNavigateToLogin: () -> Unit
+) {
 
     var isDialogLoading by remember { mutableStateOf(false) }
-    val isDialogSuccess = remember { mutableStateOf(false) }
 
-
-    if(isDialogSuccess.value)
-        AlertDialog(isDialogSuccess, navController)
+    if(isSuccess)
+        AlertDialog(isSuccess = isSuccess,
+            onNavigateToLogin = onNavigateToLogin, onResetDialogState = {})
 
     if (isDialogLoading)
         CommonDialog()
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(LoginPrimary)) {
+    Column(modifier = Modifier.fillMaxSize().background(LoginPrimary)) {
+
         Box(modifier = Modifier.fillMaxSize()) {
             Box(modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.TopEnd) {
@@ -80,9 +83,7 @@ fun ForgotPasswordScreen(viewModel: AuthViewModel = hiltViewModel(),
             }
 
             Column(modifier = Modifier.fillMaxSize()) {
-
-                Spacer(modifier = Modifier.height(50.dp))
-
+                Spacer(modifier = Modifier.height(32.dp))
                 TextWhiteComponent(
                     value = "Forgot Password",
                     textAlign = TextAlign.Start,
@@ -95,97 +96,45 @@ fun ForgotPasswordScreen(viewModel: AuthViewModel = hiltViewModel(),
                     textAlign = TextAlign.Start,
                     fontSize = 14.sp)
 
-                Column(modifier = Modifier
+                Card(modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 30.dp)
-                    .padding(horizontal = 5.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Top) {
-                    Card(modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(),
-                        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
-                        elevation = 5.dp) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(24.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Top) {
-                            TextComponent(
-                                value = "Email")
-                            Spacer(modifier = Modifier.height(8.dp))
-                            TextFieldComponent(
-                                email,
-                                labelValue = "Email",
-                                onTextChanged = {},
-                                isErrorEmail.value,
-                                isErrorEmailMessage)
+                    .padding(top = 32.dp, start = 5.dp, end = 5.dp),
+                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+                    elevation = 5.dp
+                ) {
+                    Column(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(24.dp),
+                    ) {
+                        TextComponent(value = "Email")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        TextFieldComponent(
+                            text = email,
+                            labelName = R.string.email,
+                            onTextChanged = onEmailChange
+                        )
 
-                            Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
 
-//                            TextComponent(
-//                                value = "Password")
-//
-//                            PasswordTextFieldComponent(
-//                                password,
-//                                labelValue = "********",
-//                                onTextSelected = {},
-//                                isErrorPassword.value,
-//                                isErrorPasswordMessage)
-//
-//                            Spacer(modifier = Modifier.height(20.dp))
+                        Column(modifier = Modifier.fillMaxHeight(),
+                            verticalArrangement = Arrangement.Bottom                                ) {
+                            Column(modifier = Modifier.fillMaxWidth(),
+                                verticalArrangement = Arrangement.Bottom) {
+                                ButtonComponent(
+                                    value = R.string.reset_password,
+                                    ButtonYellow,
+                                    ButtonYellowText,
+                                    onButtonClicked = {
+                                        onResetPassword()
+                                    },isEnabled = true)
 
-//                            TextComponent(
-//                                value = "New Password")
-//
-//                            PasswordTextFieldComponent(
-//                                confirm,
-//                                labelValue = "********",
-//                                onTextSelected = {},
-//                                isErrorConfirm.value,
-//                                isErrorConfirmMessage)
+                                Spacer(modifier = Modifier.height(20.dp))
 
-
-                            Column(modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.Bottom                                ) {
-                                Column(modifier = Modifier.fillMaxWidth(),
-                                    verticalArrangement = Arrangement.Bottom) {
-                                    ButtonComponent(
-                                        value = "Reset Password",
-                                        ButtonYellow,
-                                        ButtonYellowText,
-                                        onButtonClicked = {
-                                            scope.launch(Dispatchers.Main) {
-                                                viewModel.resetPassword(email.value).collect {
-                                                      when(it){
-                                                        is ResultState.Success -> {
-                                                            context.showMsg(it.data)
-                                                            isDialogLoading = false
-                                                            isDialogSuccess.value = true
-                                                        }
-                                                        is ResultState.Failure -> {
-                                                            context.showMsg(it.msg.toString())
-                                                            isDialogLoading = false
-                                                            isDialogSuccess.value = false
-                                                        }
-                                                        is ResultState.Loading -> {
-                                                            isDialogLoading = true
-                                                            isDialogSuccess.value = false
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        },isEnabled = true)
-
-                                    Spacer(modifier = Modifier.height(20.dp))
-
-                                    ClickableLoginTextComponent(
-                                        true,
-                                        onTextSelected = {
-                                            navController.navigate(Screen.Login.route)
-                                        })
-                                }
+                                ClickableLoginTextComponent(
+                                    true,
+                                    onTextSelected = {
+                                        onNavigateToLogin()
+                                    })
                             }
                         }
                     }
@@ -196,13 +145,14 @@ fun ForgotPasswordScreen(viewModel: AuthViewModel = hiltViewModel(),
 }
 
 @Composable
-fun AlertDialog(isDialogSuccess:MutableState<Boolean>,navController: NavHostController){
-
-    if (isDialogSuccess.value) {
+fun AlertDialog(
+    isSuccess: Boolean,
+    onNavigateToLogin: () -> Unit,
+    onResetDialogState : () -> Unit,
+){
+    if (isSuccess) {
         AlertDialog(
-            onDismissRequest = {
-                isDialogSuccess.value = false
-            },
+            onDismissRequest = {},
             title = {
                 Text(text = "Send Email is Success", modifier = Modifier.fillMaxWidth())
             },
@@ -216,16 +166,29 @@ fun AlertDialog(isDialogSuccess:MutableState<Boolean>,navController: NavHostCont
                 ) {
 
                     ButtonComponent(
-                        value = "Login",
+                        value = R.string.login,
                         background = ButtonYellow,
-                        text = ButtonYellowText,
+                        content = ButtonYellowText,
                         onButtonClicked = {
-                            //isDialogSuccess.value = false
-                            navController.navigate(Screen.Login.route)
-                        },true)
+                            onNavigateToLogin()
+                        },true
+                    )
                 }
             }
         )
     }
 }
 
+@Preview
+@Composable
+fun ForgotPasswordPreview(){
+    PhinconAttendanceTheme {
+        ForgotPasswordScreen(
+            email = "atifafiroenza24@gmail.com",
+            onEmailChange = {},
+            isLoading = false,
+            isSuccess = true,
+            onResetPassword = { /*TODO*/ }) {
+        }
+    }
+}

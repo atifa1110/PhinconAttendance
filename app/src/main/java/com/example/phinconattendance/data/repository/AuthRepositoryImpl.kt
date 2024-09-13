@@ -1,6 +1,6 @@
-package com.example.phinconattendance.data.auth
+package com.example.phinconattendance.data.repository
 
-import android.util.Log
+import com.example.phinconattendance.data.model.ResultState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -69,7 +69,7 @@ class AuthRepositoryImpl @Inject constructor(
         val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
         result.user?.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name).build())!!
             .addOnCompleteListener {
-                trySend(ResultState.Success(result.user!!.uid))
+                trySend(ResultState.Success(result.user?.uid ?: ""))
                 //Log.d("Register User",result.user!!.uid)
             }.addOnFailureListener {
                 trySend(ResultState.Failure(it))

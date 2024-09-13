@@ -1,11 +1,11 @@
 package com.example.phinconattendance.di
 
 import android.content.Context
-import com.example.phinconattendance.data.preference.DataStoreRepository
-import com.example.phinconattendance.data.auth.AuthRepository
-import com.example.phinconattendance.data.auth.AuthRepositoryImpl
-import com.example.phinconattendance.data.database.DatabaseRepository
-import com.example.phinconattendance.data.database.DatabaseRepositoryImpl
+import com.example.phinconattendance.data.repository.DataStoreRepository
+import com.example.phinconattendance.data.repository.AuthRepository
+import com.example.phinconattendance.data.repository.AuthRepositoryImpl
+import com.example.phinconattendance.data.repository.DatabaseRepository
+import com.example.phinconattendance.data.repository.DatabaseRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -27,16 +27,6 @@ object AppModule {
         @ApplicationContext context: Context
     ) = DataStoreRepository(context = context)
 
-//    @Provides
-//    @Singleton
-//    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
-//
-//    @Provides
-//    @Singleton
-//    fun provideAuthImpl(firebaseAuth: FirebaseAuth) : AuthRepository{
-//        return AuthRepositoryImpl(firebaseAuth)
-//    }
-
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -45,9 +35,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesRealtimeDatabase(): DatabaseReference =
-        Firebase.database.reference
-
+    fun providesRealtimeDatabase(): DatabaseReference = Firebase.database.reference
 
     @Provides
     fun provideUserRepository(impl: DatabaseRepositoryImpl): DatabaseRepository = impl

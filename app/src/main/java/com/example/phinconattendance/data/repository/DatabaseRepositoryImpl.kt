@@ -1,10 +1,10 @@
-package com.example.phinconattendance.data.database
+package com.example.phinconattendance.data.repository
 
-import android.system.Os.close
 import android.util.Log
-import com.example.phinconattendance.data.auth.ResultState
+import com.example.phinconattendance.data.model.ResultState
+import com.example.phinconattendance.data.model.Attendance
 import com.example.phinconattendance.data.model.AttendanceResponse
-import com.example.phinconattendance.data.model.Time
+import com.example.phinconattendance.data.model.User
 import com.example.phinconattendance.data.model.UserResponse
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,7 +19,7 @@ class DatabaseRepositoryImpl @Inject constructor(
     private val database: DatabaseReference
 ): DatabaseRepository {
 
-    override fun insertUser(key : String,item: UserResponse.User): Flow<ResultState<String>> = callbackFlow{
+    override fun insertUser(key : String, item: User): Flow<ResultState<String>> = callbackFlow{
         trySend(ResultState.Loading)
 
         database.child("User").child(key).setValue(item).addOnCompleteListener {
@@ -40,7 +40,7 @@ class DatabaseRepositoryImpl @Inject constructor(
         val valueEvent = object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val items = UserResponse(snapshot.getValue(UserResponse.User::class.java),
+                val items = UserResponse(snapshot.getValue(User::class.java),
                         key  = snapshot.key)
                 trySend(ResultState.Success(items))
             }
@@ -59,7 +59,7 @@ class DatabaseRepositoryImpl @Inject constructor(
     }
 
 
-    override fun insertAttendance(userId : String,key: String, item: AttendanceResponse.Attendance): Flow<ResultState<String>> = callbackFlow{
+    override fun insertAttendance(userId : String,key: String, item: Attendance): Flow<ResultState<String>> = callbackFlow{
         trySend(ResultState.Loading)
 
         database.child("Attendance").child(userId).child(key).setValue(item).addOnCompleteListener {
@@ -81,10 +81,10 @@ class DatabaseRepositoryImpl @Inject constructor(
                 val items = snapshot.children.map {
                     val s = it.child("time").getValue(Long::class.java)
                     Log.d("DatabaseAttendance",s.toString())
-                    //if(Time().convertToHour(s)<24)
-                        AttendanceResponse(
-                            it.getValue(AttendanceResponse.Attendance::class.java),
-                            key = it.key)
+                    AttendanceResponse(
+                        it.getValue(Attendance::class.java),
+                        key = it.key
+                    )
                 }
 
                 trySend(ResultState.Success(items))

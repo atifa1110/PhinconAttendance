@@ -1,6 +1,5 @@
 package com.example.phinconattendance.screen.splash
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -20,28 +19,45 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.phinconattendance.navigation.Screen
 import com.example.phinconattendance.ui.theme.BrokenWhite
 import com.example.phinconattendance.ui.theme.DarkBlue
 import kotlinx.coroutines.delay
 import com.example.phinconattendance.R
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 
 @Composable
-fun AnimatedSplashScreen(navController : NavHostController){
+fun AnimatedSplashScreen(
+    onNavigateToLogin : () -> Unit,
+    onNavigateToBoarding : () -> Unit,
+    onNavigateToHome : () -> Unit,
+    viewModel: SplashViewModel = hiltViewModel()
+){
+    val boardingState by viewModel.onboardingState.collectAsStateWithLifecycle(initialValue = false)
+    val loginState by viewModel.loginState.collectAsStateWithLifecycle(initialValue = false)
+
     var startAnimation by remember { mutableStateOf(false) }
     val alphaAnim = animateFloatAsState(
         targetValue = if (startAnimation) 1f else 0f,
         animationSpec = tween(
-            durationMillis = 3000
-        )
+            durationMillis = 2000
+        ), label = ""
     )
 
-    LaunchedEffect(key1 = true) {
+    // splash screen loading check if boarding state and login state exist or not
+    // if splash screen finish than go to screen that state complete
+    LaunchedEffect(true) {
         startAnimation = true
         delay(3000)
-        navController.popBackStack()
-        navController.navigate(Screen.OnBoarding.route)
+        when{
+            !boardingState -> onNavigateToBoarding()
+            !loginState -> onNavigateToLogin()
+            else -> onNavigateToHome()
+        }
     }
 
     Splash(alpha = alphaAnim.value)
@@ -55,7 +71,7 @@ fun Splash(alpha : Float){
     ){
         Image(painter = painterResource(id = R.drawable.ic_logo),
             modifier = Modifier
-                .size(300.dp,80.dp)
+                .size(300.dp, 80.dp)
                 .alpha(alpha = alpha),
             contentDescription = "Logo Icon"
         )
@@ -65,11 +81,5 @@ fun Splash(alpha : Float){
 @Composable
 @Preview
 fun SplashScreenView(){
-    Splash(alpha = 1f)
-}
-
-@Composable
-@Preview(uiMode = UI_MODE_NIGHT_YES)
-fun SplashScreenDarkView(){
     Splash(alpha = 1f)
 }

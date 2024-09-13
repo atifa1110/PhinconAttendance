@@ -16,7 +16,7 @@
 
     <string name="welcome">Welcome To Login</string>
     <string name="fill_login">Please fill email and password to login your app account</string>
-    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_password">Forgot Password ?</string>
 
     <string name="create_account">Create Your Account</string>
     <string name="fill_register">Please fill email, name, password, and repeat password to register your app</string>
@@ -58,5 +58,22 @@
     <string name="password_short">Password Min 8 Character</string>
     <string name="password_matched">Password is Not Matched</string>
     <string name="fill_data"><![CDATA[Please fill email & password to login your app account]]></string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="your_attendance">Your Attendance</string>
+    <string name="location">Location</string>
+    <string name="check_out">Check Out</string>
+    <string name="check_in">Check In</string>
+    <string name="attendance_history">Attendance History</string>
+    <string name="logs">Logs</string>
+    <string name="profile">Profile</string>
+    <string name="employee_number">No. Karyawan</string>
+    <string name="address">Alamat</string>
+    <string name="change_password">Change Password</string>
+    <string name="general">General</string>
+    <string name="no_history_day">There is no logs history for today</string>
+    <string name="no_history_week">There is no logs history for this week</string>
+    <string name="no_history_month">There is no logs history for this month</string>
+    <string name="no_history_year">There is no logs history for this year</string>
 
 </resources>

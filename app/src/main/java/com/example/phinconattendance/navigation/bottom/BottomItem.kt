@@ -13,23 +13,20 @@ import com.example.phinconattendance.ui.theme.unselectedColor
 @Composable
 fun RowScope.BottomItem(
     screen: BottomScreen,
-    currentDestination: NavDestination?,
+    currentDestination: String?,
     navController: NavHostController,
 ) {
-    //RowScope.BottomNavigationItem
-    val backStackEntry = navController.currentBackStackEntryAsState()
     BottomNavigationItem(
         icon = { Icon(painterResource(id = screen.icon), contentDescription = screen.title) },
-//        selected = currentDestination?.hierarchy?.any {
-//            it.route == screen.screen_route
-//        } == true,
-        selected = screen.screen_route == backStackEntry.value?.destination?.route,
+        selected = currentDestination == screen.screen_route,
         label = { Text(text = screen.title) },
         unselectedContentColor = unselectedColor,
         onClick = {
-            navController.navigate(screen.screen_route){
-                popUpTo(navController.graph.findStartDestination().id)
-                launchSingleTop = true
+            if(currentDestination != screen.screen_route) {
+                navController.navigate(screen.screen_route) {
+                    popUpTo(navController.graph.startDestinationId)
+                    launchSingleTop = true // Avoid multiple copies of the same destination
+                }
             }
         }
     )

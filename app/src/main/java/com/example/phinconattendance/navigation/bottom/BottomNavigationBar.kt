@@ -9,25 +9,27 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.phinconattendance.ui.theme.selectedColor
 
 @Composable
-fun BottomNavigationCustom(navController: NavHostController) {
+fun BottomNavigationBar(navController: NavHostController) {
     val items = listOf(
         BottomScreen.Home,
         BottomScreen.History,
         BottomScreen.Profile
     )
 
-    BottomNavigation(backgroundColor = Color.White, contentColor = selectedColor
+    BottomNavigation(
+        backgroundColor = Color.White,
+        contentColor = selectedColor
     ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination
+        // Track the current backstack entry
+        val navBackStackEntry = navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry.value?.destination?.route
+
         items.forEach { item ->
-            currentRoute?.let {
-                BottomItem(
-                    screen = item,
-                    currentDestination = it,
-                    navController = navController
-                )
-            }
+            BottomItem(
+                screen = item,
+                currentDestination = currentRoute,
+                navController = navController
+            )
         }
     }
 }

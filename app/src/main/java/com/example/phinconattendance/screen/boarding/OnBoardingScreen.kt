@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,35 +16,40 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.example.phinconattendance.navigation.Screen
 import com.example.phinconattendance.ui.theme.*
 import com.google.accompanist.pager.*
 
+@OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
+@Composable
+fun OnBoardingRoute(
+    onNavigateToLogin : () -> Unit,
+    onNavigateToRegister : () -> Unit,
+    viewModel: OnBoardingViewModel = hiltViewModel()
+){
+
+    OnBoardingScreen(
+        onSaveBoardingState = viewModel::saveOnBoardingState,
+        onNavigateToLogin = onNavigateToLogin,
+        onNavigateToRegister = onNavigateToRegister
+    )
+}
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
-fun OnBoardingScreen(navController : NavHostController,
-                     onBoardingViewModel: OnBoardingViewModel = hiltViewModel()){
-
+fun OnBoardingScreen(
+    onSaveBoardingState : (Boolean) -> Unit,
+    onNavigateToLogin: () -> Unit,
+    onNavigateToRegister: () -> Unit
+){
     val pages = listOf(
         OnBoardingPage.First,
         OnBoardingPage.Second, OnBoardingPage.Third)
 
     val pagerState = rememberPagerState()
 
-    LaunchedEffect(key1 = true) {
-        onBoardingViewModel.readOnBoardingState()
-        if(onBoardingViewModel.startDestination.equals("Complete")){
-            navController.navigate(Screen.Login.route)
-        }
-    }
-
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter){
-        SkipButton(){
-
-        }
+        SkipButton(onClick = {})
         Box(modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
         ) {
@@ -74,17 +78,20 @@ fun OnBoardingScreen(navController : NavHostController,
                 ) {
                     LoginButton(){
                         //will save boarding state to complete
-                        onBoardingViewModel.saveOnBoardingState(completed = true)
+                        //onBoardingViewModel.saveOnBoardingState(completed = true)
+                        onSaveBoardingState(true)
                         //can't go back to previous page
 
-                        navController.popBackStack()
+                        //navController.popBackStack()
                         //navigate to screen login
-                        navController.navigate(Screen.Login.route)
+                        onNavigateToLogin()
+                        //navController.navigate(Screen.Login.route)
                     }
                     Spacer(modifier = Modifier.size(20.dp))
                     SignUpButton(pagerState = pagerState){
                         //navigate to screen register
-                        navController.navigate(Screen.Register.route)
+                        //navController.navigate(Screen.Register.route)
+                        onNavigateToRegister()
                     }
                 }
             }

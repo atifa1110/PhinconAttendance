@@ -1,7 +1,7 @@
 package com.example.phinconattendance.component
 
 import android.util.Log
-import androidx.compose.foundation.background
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -30,47 +31,19 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import com.example.phinconattendance.R
 import com.example.phinconattendance.ui.theme.*
-
 
 @Composable
 fun TextComponent(value: String) {
     Text(
         text = value,
-        modifier = Modifier.fillMaxWidth(),
         style = TextStyle(
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
             fontStyle = FontStyle.Normal
         ), color = TextColor
-    )
-}
-
-@Composable
-fun TextBigComponent(value: String) {
-    Text(
-        text = value,
-        modifier = Modifier.fillMaxWidth(),
-        style = TextStyle(
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            fontStyle = FontStyle.Normal
-        ), color = TitleColor
-    )
-}
-
-@Composable
-fun TextComponentShort(value: String) {
-    Text(
-        text = value,
-        style = TextStyle(
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Normal,
-            fontStyle = FontStyle.Normal
-        ), color = Color.Gray
     )
 }
 
@@ -90,94 +63,61 @@ fun TextWhiteComponent(value: String,textAlign: TextAlign, fontSize: TextUnit) {
     )
 }
 
-@Composable
-fun TextWhiteBigComponent(value: String) {
-    Text(
-        text = value,
-        modifier = Modifier.fillMaxWidth(),
-        style = TextStyle(
-            fontSize = 20.sp,
-            fontWeight = FontWeight.W800,
-            fontStyle = FontStyle.Normal
-        ), color = Color.White
-    )
-}
-
 
 @Composable
-fun TextFieldComponent(input : MutableState<String>,
-                       labelValue: String,
-                       onTextChanged: (String) -> Unit,
-                       errorStatus: Boolean = false,
-                       errorMessage : MutableState<String>
+fun TextFieldComponent(
+    text : String,
+    textError : String? = null,
+    @StringRes labelName : Int,
+    onTextChanged : (String) -> Unit,
 ) {
-
-    //val textValue = remember { mutableStateOf("") }
-    //val localFocusManager = LocalFocusManager.current
-    OutlinedTextField(modifier = Modifier
-        .fillMaxWidth(),
-        placeholder = { Text(text = labelValue) },
-        colors =
-        if (!errorStatus) TextFieldDefaults.outlinedTextFieldColors(
+    OutlinedTextField(modifier = Modifier.fillMaxWidth(),
+        placeholder = { Text(text = stringResource(id = labelName)) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            textColor = Color.Gray,
             backgroundColor = Color.Transparent,
-            cursorColor = Blue,
-            focusedBorderColor = Blue,
-            focusedLabelColor = Blue
-        )else TextFieldDefaults.outlinedTextFieldColors(
-            backgroundColor = Color.Transparent,
-            textColor = Color.Black,
-            //cursorColor = Color.Red,
-            focusedBorderColor = Color.Red,
-            focusedLabelColor = Color.Red,
-            //unfocusedBorderColor = Color.Red
+            errorBorderColor = Color.Red
         ),
-
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         singleLine = true,
         maxLines = 1,
-        value = input.value,
+        value = text,
         onValueChange = {
-            input.value = it
             onTextChanged(it)
         },
-        isError = errorStatus
+        isError = textError!= null
     )
 
-    if(errorStatus){
-        Text( modifier = Modifier.padding(top = 2.dp, start = 2.dp).fillMaxWidth(),
-            text = errorMessage.value,
-            color = MaterialTheme.colors.error)
+    if(textError!=null){
+        Text(
+            text = "* $textError",
+            color = MaterialTheme.colors.error,
+            fontSize = 12.sp,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp, top = 4.dp)
+        )
     }
 }
 
+
 @Composable
-fun PasswordTextFieldComponent(password : MutableState<String>,
-                               labelValue: String,
-                               onTextSelected: (String) -> Unit,
-                               errorStatus: Boolean,
-                               errorMessage : MutableState<String>) {
-
-    val localFocusManager = LocalFocusManager.current
-    //val password = remember { mutableStateOf("") }
+fun PasswordTextFieldComponent(
+    text : String,
+    textError : String? = null,
+    @StringRes labelName : Int,
+    onTextChanged : (String) -> Unit,
+    localFocusManager: FocusManager = LocalFocusManager.current
+) {
     val passwordVisible = remember { mutableStateOf(false) }
-
     OutlinedTextField(modifier = Modifier
         .fillMaxWidth()
         .clip(Shapes.small),
-        placeholder = { Text(text = labelValue) },
-        colors =
-        if (!errorStatus) TextFieldDefaults.outlinedTextFieldColors(
+        placeholder = { Text(text = stringResource(id = labelName)) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
             backgroundColor = Color.Transparent,
-            focusedBorderColor = Blue,
-            focusedLabelColor = Blue,
-            cursorColor = Blue
-        )else TextFieldDefaults.outlinedTextFieldColors(
-            backgroundColor = Color.Transparent,
-            textColor = Color.Black,
-            cursorColor = Color.Red,
-            focusedBorderColor = Color.Red,
-            focusedLabelColor = Color.Red,
-            unfocusedBorderColor = Color.Red
+            textColor = Color.Gray
         ),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
@@ -188,10 +128,9 @@ fun PasswordTextFieldComponent(password : MutableState<String>,
             localFocusManager.clearFocus()
         },
         maxLines = 1,
-        value = password.value,
+        value = text,
         onValueChange = {
-            password.value = it
-            onTextSelected(it)
+            onTextChanged(it)
         },
         trailingIcon = {
             val iconImage = if (passwordVisible.value) {
@@ -213,13 +152,19 @@ fun PasswordTextFieldComponent(password : MutableState<String>,
         },
 
         visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
-        isError = errorStatus
+        isError = textError!=null
     )
 
-    if(errorStatus){
-        Text( modifier = Modifier.padding(top = 2.dp, start = 2.dp).fillMaxWidth(),
-            text = errorMessage.value,
-            color = MaterialTheme.colors.error)
+    if(textError!=null){
+        Text(
+            text = "* $textError",
+            color = MaterialTheme.colors.error,
+            fontSize = 12.sp,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp, top = 4.dp)
+        )
     }
 }
 
@@ -262,43 +207,39 @@ fun ClickableLoginTextComponent(tryingToLogin: Boolean = true, onTextSelected: (
 }
 
 @Composable
-fun ButtonComponent(value: String, background: Color, text:Color,onButtonClicked: () -> Unit, isEnabled: Boolean = false) {
+fun ButtonComponent(
+    @StringRes value: Int,
+    background: Color,
+    content :Color,
+    onButtonClicked: () -> Unit,
+    isEnabled: Boolean = false
+) {
     Button(modifier = Modifier
         .fillMaxWidth()
-        .heightIn(57.dp),
-        onClick = {
-            onButtonClicked.invoke()
-        },
+        .height(57.dp),
+        onClick = onButtonClicked,
         contentPadding = PaddingValues(),
-        colors = ButtonDefaults.buttonColors(Color.Transparent),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = background,
+            contentColor = content
+        ),
         shape = RoundedCornerShape(10.dp),
-        enabled = isEnabled) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(57.dp)
-                .background(
-                    color = background,
-                    shape = RoundedCornerShape(5.dp)
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = value,
-                fontSize = 16.sp,
-                color = text,
-                fontWeight = FontWeight.Bold
-            )
-
-        }
-
+        enabled = isEnabled
+    ) {
+        Text(
+            text = stringResource(id = value),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
 @Composable
-fun TextButtonComponent(value : String , onButtonClicked: () -> Unit){
-    TextButton(modifier = Modifier
-        .fillMaxWidth(),
+fun TextButtonComponent(
+    @StringRes value: Int,
+    onButtonClicked: () -> Unit
+){
+    TextButton(modifier = Modifier.fillMaxWidth(),
         onClick = onButtonClicked)
     {
         Box(
@@ -306,7 +247,7 @@ fun TextButtonComponent(value : String , onButtonClicked: () -> Unit){
             contentAlignment = Alignment.TopEnd
         ){
             Text(
-                text = value,
+                text = stringResource(id = value),
                 fontSize = 14.sp ,
                 color = LoginPrimary,
                 textAlign = TextAlign.End

@@ -1,4 +1,4 @@
-package com.example.phinconattendance.data.auth
+package com.example.phinconattendance.data.model
 
 sealed class ResultState <out T>{
     data class Success<out R>(val data:R) : ResultState<R>()
