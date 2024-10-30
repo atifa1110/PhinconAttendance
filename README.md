@@ -4,11 +4,8 @@
 ## 🚀 Overview
 PhinconAttendance is an attendance-tracking app developed for Android, designed to simplify the process of recording and managing attendance. Built using Kotlin and Jetpack Compose, the app utilizes Firebase for secure authentication and data storage, along with other modern Android libraries to enhance performance and user experience.
 
----
 ## Figma Design: 
 https://www.figma.com/design/SDRYsbwyn30MbxLH6IYOqd/Phincon-Attendance?node-id=0-1&t=s3hlXk6QAdLKbSkO-0
-
----
 
 ## 💡 Features
 - **User Authentication**: Firebase Auth for secure sign-in/sign-out.
@@ -17,15 +14,11 @@ https://www.figma.com/design/SDRYsbwyn30MbxLH6IYOqd/Phincon-Attendance?node-id=0
 - **Admin Dashboard**: Admin privileges allow for attendance management, report generation, and user insights.
 - **Notifications**: Real-time alerts for attendance confirmation and reminders.
 
----
-
 ## 🛠️ Tech Stack
 - **Languages**: Kotlin
 - **Framework**: Jetpack Compose for UI
 - **Libraries & Tools**: Firebase Auth, Firebase Realtime Database, Coroutine, Hilt for dependency injection, Glide for image loading
 - **Architecture**: MVVM (Model-View-ViewModel)
-
----
 
 ## Screenshots :
  <table align="center">
