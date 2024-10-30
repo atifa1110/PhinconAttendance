@@ -11,8 +11,6 @@ https://www.figma.com/design/SDRYsbwyn30MbxLH6IYOqd/Phincon-Attendance?node-id=0
 - **User Authentication**: Firebase Auth for secure sign-in/sign-out.
 - **Real-time Data Management**: Integrated with Firebase Realtime Database for instant updates.
 - **Attendance Logging**: Easily track attendance with intuitive UI and background processes.
-- **Admin Dashboard**: Admin privileges allow for attendance management, report generation, and user insights.
-- **Notifications**: Real-time alerts for attendance confirmation and reminders.
 
 ## 🛠️ Tech Stack
 - **Languages**: Kotlin
