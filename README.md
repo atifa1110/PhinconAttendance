@@ -1,27 +1,31 @@
-# Phincon Attendance 
-Phincon Attendance is Native Android Application to record attendance for studying only using Kotlin, Firebase and Jetpack Compose
+# PhinconAttendance 📅
+**An Android application for efficient and streamlined attendance tracking**
 
+## 🚀 Overview
+PhinconAttendance is an attendance-tracking app developed for Android, designed to simplify the process of recording and managing attendance. Built using Kotlin and Jetpack Compose, the app utilizes Firebase for secure authentication and data storage, along with other modern Android libraries to enhance performance and user experience.
+
+---
 ## Figma Design: 
 https://www.figma.com/design/SDRYsbwyn30MbxLH6IYOqd/Phincon-Attendance?node-id=0-1&t=s3hlXk6QAdLKbSkO-0
 
-## Features 
-1. Show OnBoarding to introduce Application
-2. Login into Application
-3. Register into Application
-4. Forget Password
-5. Check In based on location
-6. Check Out based on location
-7. Show Logs Attendance History based on day , week, month, and year 
-8. Show Profile 
-9. Edit Profile
+---
 
-## Tech Stack 
-1. Entirely written in Kotlin 
-2. Jetpack Compose for UI and navigation
-3. Hilt Dagger for dependency injection 
-4. Firebase (Auth & Database) and Datastore for Database
-5. MVVM for Design Pattern Architecture
-6. Kotlin Coroutines for threading.
+## 💡 Features
+- **User Authentication**: Firebase Auth for secure sign-in/sign-out.
+- **Real-time Data Management**: Integrated with Firebase Realtime Database for instant updates.
+- **Attendance Logging**: Easily track attendance with intuitive UI and background processes.
+- **Admin Dashboard**: Admin privileges allow for attendance management, report generation, and user insights.
+- **Notifications**: Real-time alerts for attendance confirmation and reminders.
+
+---
+
+## 🛠️ Tech Stack
+- **Languages**: Kotlin
+- **Framework**: Jetpack Compose for UI
+- **Libraries & Tools**: Firebase Auth, Firebase Realtime Database, Coroutine, Hilt for dependency injection, Glide for image loading
+- **Architecture**: MVVM (Model-View-ViewModel)
+
+---
 
 ## Screenshots :
  <table align="center">
